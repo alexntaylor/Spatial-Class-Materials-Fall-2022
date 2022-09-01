@@ -28,7 +28,7 @@ rm(list = ls())
 # return current working directory
 getwd()  
 # set working directory
-setwd("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 2")  
+setwd("/Users/atay508/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture 2")  
 
 # 1.3 Installing and loading some useful packages from CRAN
 # install.packages("dplyr")
