@@ -31,7 +31,7 @@ results <- sapply(as.list(global.libraries), pkgTest)
 # library(viridis)
 # library(tmap)
 
-dir <- "/Users/noeljohnson/Dropbox/Teaching/Spatial Fall2021/Exercises/Exercise 1"
+dir <- "/Users/atay508/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Coding Exercise 1"
 
 setwd(dir)
 getwd()
