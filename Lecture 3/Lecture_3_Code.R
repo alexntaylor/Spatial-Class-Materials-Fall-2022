@@ -107,7 +107,8 @@ st_crs(usa_ea)
 
 # Clipping
 # Unions (dissolve)---pay attention to slivers
-africa_sf <- st_read("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 2/data/africa_scale.shp", quiet = T)
+africa_sf <- st_read("~/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture 2/data/africa_scale.shp",
+                     quiet = T)
 par(mfrow=c(1,2))
 plot(africa_sf[64], col=NA, main="Original", reset=F)
 plot(st_union(africa_sf), col=NA, main="Union")
@@ -133,7 +134,8 @@ plot(second_sf[1], col=NA, main="Union 2", reset=F)
 
 # Cropping and bounding boxes
 # get some data and subset boundaries to Kenya
-afr_rds <- st_read("./data/africa_roads.shp", quiet=T)
+afr_rds <- st_read("~/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture 2/data/africa_roads.shp",
+                   quiet=T)
 kenya <- africa_sf %>% st_transform(4326) %>%
   filter(adm0_a3 == "KEN")
 st_bbox(kenya)
