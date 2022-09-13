@@ -41,6 +41,8 @@ getwd()
 # Data --------------------------------------------------------------------
 
 africa_sf <- st_read("../Lecture 2/data/africa_scale.shp")
+africa_sf <- africa_sf %>% 
+  dplyr::select(admin, type, iso_a3, region_wb, pop_est)
 cities <- read.csv("../Lecture 2/data/africa_cities.csv")
 
 
@@ -83,4 +85,21 @@ cities_urb
 
 # Problem 3 ---------------------------------------------------------------
 
+# Merge
+cities_m <- cities_urb %>% 
+  group_by(iso3v10) %>% 
+  filter(pop == max(pop)) %>% 
+  ungroup() %>% 
+  rename(iso_a3 = iso3v10) %>% 
+  dplyr::select(pr_share, iso_a3)
+africa_n <- africa_sf %>% 
+  left_join(cities_m, by = "iso_a3")
 
+# Plot
+plot(africa_n["pr_share"],
+     axes = T,
+     main = "% of Urban Pop in Primate City")
+
+#
+
+# End Code

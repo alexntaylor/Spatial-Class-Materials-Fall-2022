@@ -381,7 +381,7 @@ stargazer(as.data.frame(africa_sf), type="text")
 
 # Subset, there are way too many variables
 africa_sf <- africa_sf %>%
-  select(admin, type, iso_a3, region_wb, pop_est)
+  dplyr::select(admin, type, iso_a3, region_wb, pop_est)
 
 # There's a geometry variable
 names(africa_sf)[6]
