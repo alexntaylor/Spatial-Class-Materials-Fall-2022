@@ -1,6 +1,6 @@
 # Code for Spatial Econometrics: Lecture 3 "Vector manipulations"
 # Created: 9/10/19
-# Last Edited: 9/7/22
+# Last Edited: 9/14/22
 # Author: Noel Johnson
 
 library(tidyverse)
@@ -63,7 +63,7 @@ p1 <- st_as_sfc(p1_wkt, crs=4326)
 st_is_valid(p1, reason = T)
 
 par(mfrow = c(1, 1))
-plot(p1)
+plot(p1, axes=T)
 
 # Repair using lwgeom, cast to single polygons
 library(lwgeom)
@@ -78,7 +78,7 @@ library(spData)
 dev.off()
 usa_ea <- st_transform(us_states, 2163) #from spData
 plot(usa_ea[7], col=NA, main="")
-usa_sf <- st_simplify(usa_ea, dTolerance = 100000)
+usa_sf <- st_simplify(usa_ea, dTolerance = 10000)
 plot(usa_sf[7], col=NA, main="")
 st_is_valid(usa_sf, reason = T)
 
@@ -94,20 +94,22 @@ dev.off()
 par(mfrow=c(1,1))
 plot(usa_ea[1], col=NA, main="", reset=F)
 plot(st_centroid(usa_ea), col=2, add=T)
+centroids_usa <- st_centroid(usa_ea)
 # plot(usa_ea[1], col=NA, main="", reset=F)
 plot(st_point_on_surface(usa_ea), col=3, add=T)
 dev.off()
 
 # Buffers (be careful about CRS---sometimes must project using buffers)
-buff_sf <- st_centroid(usa_ea) %>% st_buffer(dist = 1e5)
+buff_sf <- st_centroid(usa_ea) %>% st_buffer(dist = 100000)
 plot(buff_sf[7], col=NA, reset=F, main="")
 plot(st_centroid(usa_ea)[7], col=2, add=T)
 st_crs(usa_ea)
 
+# buff_sf <- usa_ea[1,] %>% st_buffer(dist = 100000)
 
 # Clipping
 # Unions (dissolve)---pay attention to slivers
-africa_sf <- st_read("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 2/data/africa_scale.shp", quiet = T)
+africa_sf <- st_read("/Users/noeljohnson/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 2/data/africa_scale.shp", quiet = T)
 par(mfrow=c(1,2))
 plot(africa_sf[64], col=NA, main="Original", reset=F)
 plot(st_union(africa_sf), col=NA, main="Union")
@@ -131,12 +133,15 @@ par(mfrow=c(1,2))
 plot(first_sf[1], col=NA, main="Union 1", reset=F)
 plot(second_sf[1], col=NA, main="Union 2", reset=F)
 
+## BEGIN HERE
+
 # Cropping and bounding boxes
-# get some data and subset boundaries to Kenya
-afr_rds <- st_read("./data/africa_roads.shp", quiet=T)
+# get some data on African roads and subset boundaries to Kenya
+afr_rds <- st_read("/Users/noeljohnson/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 2/data/africa_roads.shp", quiet=T)
 kenya <- africa_sf %>% st_transform(4326) %>%
   filter(adm0_a3 == "KEN")
 st_bbox(kenya)
+plot(kenya[64], reset=T)
 
 ## xmin ymin xmax ymax
 ## 33.89357 -4.67677 41.85508 5.50600
@@ -149,8 +154,7 @@ plot(kenya_rds[1], main="", reset=F,
      key.pos = 3, axes=T)
 plot(kenya[1], col=NA, lwd=2, add=T)
 
-
-# Spatial subsetting
+# Spatial subsetting (or "Masking")
 dev.off()
 par(mfrow=c(1,2))
 plot(kenya_rds[kenya, "type", op = st_within],
@@ -165,6 +169,7 @@ names(kenya_rds)
 kenya_rds_within <- kenya_rds[kenya, c("type", "adm0_a3"),
                               op = st_within]
 class(kenya_rds_within)
+plot(kenya_rds_within[1], reset=T)
 
 # Spatial joins with topological operations
 # Load in data and clean up variables
@@ -178,13 +183,14 @@ afr_sf <- st_read("./data/africa_bnds.shp", quiet = T,
 afr_ctys_1 <- afr_ctys %>% st_join(afr_sf)
 plot(afr_ctys_1[5], reset=T)
 
-# filter out disagreements (that is, just keep disagreements)
+# filter out agreements (that is, just keep disagreements)
 afr_ctys_1 <- afr_ctys_1 %>% filter(iso3v10!=adm0_a3)
 
 # all mismatches other than in MAR
 glimpse(afr_ctys_1 %>% filter(admin != "Morocco"))
 
 # let's focus on Bangui
+# show everbody on google maps where it is (border of CAR and DRC)
 bangui <- afr_ctys_1 %>% filter(name == "Bangui")
 
 # What’s going on?
