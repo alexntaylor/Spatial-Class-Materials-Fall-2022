@@ -1,6 +1,6 @@
 # Homework 1, Exercise: Map Making
 # Created: 9/12/22
-# Last Edited: 9/12/22
+# Last Edited: 9/13/22
 # Author: Alexander Taylor
 
 
@@ -40,10 +40,10 @@ getwd()
 
 # Data --------------------------------------------------------------------
 
-africa_sf <- st_read("../Lecture 2/data/africa_scale.shp")
+africa_sf <- st_read("./data/africa_scale.shp")
 africa_sf <- africa_sf %>% 
   dplyr::select(admin, type, iso_a3, region_wb, pop_est)
-cities <- read.csv("../Lecture 2/data/africa_cities.csv")
+cities <- read.csv("./data/africa_cities.csv")
 
 
 # Problem 1 ---------------------------------------------------------------

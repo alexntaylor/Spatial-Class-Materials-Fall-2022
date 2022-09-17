@@ -95,7 +95,7 @@ ratings_m
 
 ratings_m <- ratings_m %>% 
   mutate(DIST.RATIO = abs(RATIO - M.RATIO)/SD.RATIO) %>% 
-  arrange(desc(DIST.RATIO))
+  arrange(MPAA, desc(DIST.RATIO))
 
 # Top 6 Over and Under Performers Overall
 
