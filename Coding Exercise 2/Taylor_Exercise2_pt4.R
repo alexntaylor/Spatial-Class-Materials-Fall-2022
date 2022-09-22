@@ -77,7 +77,7 @@ africa_int <- africa_int %>%
 
 # Problem 4 ---------------------------------------------------------------
 
-# I tried to run the intersection necessary here, but after 3 hours of waiting it still hadn't finished.
+# I tried to run the intersection necessary here, but R worked for several hours and couldn't do it.
 # So here's the code I would have run for problems 4 and 5.
 
 #rds_africa <- roads %>% 
@@ -94,5 +94,34 @@ africa_int <- africa_int %>%
 
 #africa_int <- africa_int %>% 
 #  left_join(rds_africa, by = "id") %>% 
-#  mutate(rd_density = ttl_lgnth/area) %>% 
-#  
+#  mutate(rd_density = ttl_lgnth/area)
+#
+#plot(africa_int["rd_density"], breaks="kmeans")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+
+
+
+
+
+
+
+
+
+
+# End Code
+
+
