@@ -59,7 +59,7 @@ freq(kenya_urb_foc)
 # Problem 3 ---------------------------------------------------------------
 
 # Align
-kenya_pop_lt <- projectRaster(kenya_pop, lights, method = "ngb")
+kenya_pop_lt <- projectRaster(kenya_pop, lights)
 plot(kenya_pop_lt)
 
 # Light per Capita
@@ -69,7 +69,7 @@ light_pc <- overlay(lights, kenya_pop_lt, fun = function(x,y) {x/y})
 # Problem 4 ---------------------------------------------------------------
 
 # Align lights w/kenya_urb_foc
-urb_foc_lt <- projectRaster(kenya_urb_foc, lights, method = "ngb")
+urb_foc_lt <- projectRaster(kenya_urb_foc, light_pc)
 
 # Average light pc
 
@@ -80,8 +80,8 @@ light_pc[light_pc==Inf] <- 0
 zonal(light_pc, urb_foc_lt, fun = "mean")
 
 # Unpopulated: 0
-# Rural: 0.001883
-# Urban: 0.011275
+# Rural: 0.06851
+# Urban: 0.12471
 
 
 
