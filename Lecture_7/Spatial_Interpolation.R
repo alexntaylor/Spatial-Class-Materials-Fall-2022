@@ -17,7 +17,7 @@ library(viridis)
 # Johnson Laptop
 # setwd("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture_6")
 # Johnson Desktop
-setwd("/Users/noeljohnson/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture_6")
+setwd("~/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture_7")
 
 # Load data
 ## Load in City Data and Project
