@@ -12,7 +12,7 @@ library(reldist)
 library(stargazer)
 library(ncdf4) # package for netcdf manipulation
 
-setwd("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 7")
+setwd("~/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture 8")
 
 # see https://stackoverflow.com/questions/68478179/how-to-resolve-spherical-geometry-failures-when-joining-spatial-data
 sf::sf_use_s2(FALSE)
@@ -83,7 +83,7 @@ sum(table(greg.dcw.sf$GREGNAME))
 greg.dcw.sf <- greg.dcw.sf %>% mutate(poly_area = st_area(.)) %>%
   mutate(poly_area = set_units(poly_area, km^2)) %>%
   filter(poly_area > set_units(1, km^2)) %>%
-  select(GREGID, GREGNAME, COUNTRY = NA2_DESCRI, poly_area)
+  dplyr::select(GREGID, GREGNAME, COUNTRY = NA2_DESCRI, poly_area)
 
 # How many ethnic groups are there in Afghanistan? 
 # Does this match Alesina et al. (2016)? 
@@ -131,7 +131,7 @@ greg.dcw.sf <- greg.dcw.sf %>% mutate(ID = 1:nrow(.)) %>%
 # population density in each ethnic homeland, call this new variable 
 # pop and merge back to the GREG-DCW feature.
 
-r.pop <- raster("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 7/Alesina_2016_rep/gpw3_pdens_2000/glds00g.bil")
+r.pop <- raster("Alesina_2016_rep/gpw3_pdens_2000/glds00g.bil")
 # ds00g population densities in 2000, unadjusted, persons per square km
 crs(r.pop)=crs(greg.dcw.sf)
 crs(r.pop)
@@ -212,7 +212,7 @@ gini(grid.afg.sf[["light_pc"]], w = grid.afg.sf[["pop"]])
 # data should be projected, distances matter. 
 # delete stuff we have computed before
 greg.vor.sf <- greg.dcw.sf %>%
-  select(-light, -pop, -light_pc, -poly_area) %>%
+  dplyr::select(-light, -pop, -light_pc, -poly_area) %>%
   st_transform("+proj=aeqd")
 dcw.bounds.sf <- greg.vor.sf %>% st_union()
 # a full workflow
