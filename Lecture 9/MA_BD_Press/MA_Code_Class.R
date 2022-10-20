@@ -63,12 +63,12 @@ seas <- seas %>% dplyr::select()
 # modern_countries <- modern_countries %>% dplyr::select(CntryName)
 # #plot(modern_countries[2], col="NA", reset=F)
 
-# # Visualize the data
-# plot(rom_roads[1], col="red", reset=F)
-# plot(med_roads[1], col="red", add=T)
-# plot(rivers[1], col="blue", add=T)
-# plot(seas[1], col="blue", add=T)
-# plot(cities[4], add=T)
+# Visualize the data
+plot(rom_roads[1], col="red", reset=F)
+plot(med_roads[1], col="red", add=T)
+plot(rivers[1], col="blue", add=T)
+plot(seas[1], col="blue", add=T)
+plot(cities[4], add=T)
 
 
 # Make a bounding box of the cities so you can create one a little bigger
@@ -155,7 +155,7 @@ r <- raster(ext, res=gridsize)
 rr_cost_1 <- rasterize(grid_cost_1, r, field="least_cost_1")
 crs(rr_cost_1) <- EEC
 rr_cost_1
-# plot(rr_cost_1)
+plot(rr_cost_1)
 
 
 # load in the library to calculate least cost travel paths...
