@@ -37,6 +37,14 @@ f <- dodgr_flows_aggregate(haj.graph, from = xy[1,], to = xy[2,], flows=1, contr
 dodgr_flowmap(f, linescale=5, bbox=box)
 plot(haj[3], add=T)
 
+# A different problem... Predict traffic flows Fairfax...
+net <- weight_streetnet(dodgr_streetnet("fairfax virginia"), wt_profile = "motorcar")
+nodes <- dodgr_vertices(net) # get nodes of vertices of network
+pts <- sample(nodes$id, size = 1000) # sample 1,000 random nodes for plotting
+d <- dodgr_dists(net, from = pts, to = pts)
+fmat <- matrix(runif(1000*1000), nrow = 1000)
+f <- dodgr_flows_aggregate(net, from = pts, to = pts, flows=fmat, contract= T)
+dodgr_flowmap(f, linescale=5)
 
 
 
