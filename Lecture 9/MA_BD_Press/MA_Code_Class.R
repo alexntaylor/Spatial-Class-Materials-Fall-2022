@@ -8,7 +8,7 @@ library(stargazer)
 library(haven)
 library(raster)
 
-setwd("/Users/noeljohnson_laptop/Dropbox/Teaching/Spatial Fall 2022/Lectures/Lecture 9/MA_BD_Press")
+setwd("~/Documents/George Mason/2022-23 Classes/Spatial/Spatial-Class-Materials-Fall-2022/Lecture 9/MA_BD_Press")
 
 cities_raw <- read_dta("All_Cities.dta")
 
